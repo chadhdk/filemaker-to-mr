@@ -1,0 +1,52 @@
+{
+    "id":472, //Wordpress ID
+    "booking":{
+        "start_date":"2023-09-01", //String in format Y-m-d. When booking for this venue are allowed
+        "end_date":"2023-10-31", //String in format Y-m-d. When booking for this venue are allowed
+        "lead_time":7, //Int, defaults to 7 days. How far in advance bookings on the calendar are blocked. 
+        "booking_slots":[ //Array of objects, with slot length and price
+            {
+                "slot_price":50, //int
+                "slot_length":60 //int, should be in 15 min intervals
+            }
+        ],
+        "available_times":[ //Array of objects to control opening hours of the venue. Anyday left out will be fully blocked out of the calendar
+            {
+              "opening_time":"09:00:00", //string in format H:i:s 
+              "closing_time":"16:00:00", //string in format H:i:s
+              "day":"monday" //lowercase day of the week
+            },
+            {
+              "opening_time":"10:00:00",
+              "closing_time":"16:00:00",
+              "day":"tuesday"
+            },
+            {
+              "opening_time":"09:00:00",
+              "closing_time":"16:00:00",
+              "day":"wednesday"
+            },
+            {
+              "opening_time":"09:00:00",
+              "closing_time":"16:00:00",
+              "day":"thursday"
+            },
+            {
+              "opening_time":"08:00:00",
+              "closing_time":"17:00:00",
+              "day":"friday"
+            },
+            {
+              "opening_time":"11:00:00",
+              "closing_time":"20:00:00",
+              "day":"saturday"
+            }
+        ],
+        "exceptions":[ //Array of objects controlling times that should be blocked off. This should not include dates of classes/workshops etc
+            {
+                "start_date":"2023-09-04 11:00:00",
+                "end_date":"2023-09-04 14:30:00"
+            }
+        ]
+    }
+}

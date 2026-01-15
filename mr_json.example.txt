@@ -1,0 +1,45 @@
+{
+	"id":int or null, //null if its a new event,
+	"name":"Event Name",
+	"event_type":"event" //options are "event","class","workshop",
+	"instances":[
+		{
+			"date":"Ymd",
+			"time_start":"H:i",
+			"time_end":"H:i"
+		}
+	],
+	"internal_ticketing":bool, //if we are using our booking and payment system,
+	"ticketing_url":string or null, //url for external ticketing. Ignored if internal ticketing is true,
+	"fee":{
+		"type":"fee", //options are "free","fee","scale","donation","fee_donation",
+		"fee":int , //null for free and donation_based and scale, int for fee and fee_donation,
+		"min":int, //min amount for sliding scalse
+		"max":int, //max amount for sliding scale
+		"step":int //step for sliding scale
+		},
+	"presentation":"virtual", //options are virtual, in_person, hybrid
+	"link":string or null, //Event link if virtual or hybrid,
+	"password":string or null, //Event link password if virtual or hybrid
+	"location":["Location",filemaker_id] or null, //we can discuss this, but I assume a location has an ID in filemaker. I can check if location exists, else create new using id and name. Null if the presentation is virtual,
+	"capacity":int or null, //amount of tickets available, defaults to a value set for the location wp side if null. Must be set if presentation is virtual,
+	"teacher":["Teacher Name", filemaker_id] //same as location
+	"description":"Event Description", //String. can be html. This will only be used on a new event. If the event already exists, the description will not be updated.
+    "accessibility_notes": "Notes about accessibility", //String. can be html,
+    "additional_notes": "Additional notes", //String. can be html,
+    "generic_date":"Generic date ", //String. Optional
+	"generic_time": "Generic time", //String. Optional
+    "dropin_register": "dropin" //String. Options are "dropin" or "register" or "both"
+	"card_eligible":true //bool
+    "class_type": "Physical Inquiries & Somatic Practices" //String. The string will be stripped of special charaters and lower cased. This will be used to create a taxonomy term if it doesn't already exist. Optional
+    "event_type": "Movement Research Gala" //String. The string will be stripped of special charaters and lower cased. This will be used to create a taxonomy term if it doesn't already exist. Optional
+    "workshop_type": "MELT Summer 2023" //String. The string will be stripped of special charaters and lower cased. This will be used to create a taxonomy term if it doesn't already exist. Optional
+	"allow_single_day_drop-ins": true //Boolean. For workshops which also allow single ticket sales
+	"fee_single":{
+		"type":"fee", //options are "free","fee","scale","donation","fee_donation",
+		"fee":int , //null for free and donation_based and scale, int for fee and fee_donation,
+		"min":int, //min amount for sliding scalse
+		"max":int, //max amount for sliding scale
+		"step":int //step for sliding scale
+		}, //compulsory if allow_single_day_drop-ins is true. Otherwise ignored
+}
