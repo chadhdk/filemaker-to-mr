@@ -78,11 +78,6 @@ class MROrders{
                     $refunded_items[] = $this->process_order_items($refund->get_items(),true,$order);
                 }
             }
-            if($order_id==43631){
-                $a=1;
-            }
-
-            
             $response[] = [
                 'order_id'=>$order_id,
                 'order_number'=>$order->get_order_number(),
