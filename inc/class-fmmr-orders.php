@@ -78,6 +78,9 @@ class MROrders{
                     $refunded_items[] = $this->process_order_items($refund->get_items(),true,$order);
                 }
             }
+            if($order_id==43631){
+                $a=1;
+            }
 
             
             $response[] = [
@@ -95,6 +98,7 @@ class MROrders{
                 'order_items'=>$this->process_order_items($items),
                 'refunded_items'=>$refunded_items, 
                 'discount'=>$this->process_order_discount($items),
+                'coupons'=>$order->get_used_coupons(),
                 'status'=>$status,
                 'refund'=>$order->get_total_refunded(),
                 'transferred'=>get_post_meta($order_id,'transferred_from',true),
@@ -126,6 +130,8 @@ class MROrders{
                         'quantity'=>$item->get_quantity(),
                         'date'=>$event->get_product_date($id),
                         'paid'=>$item->get_subtotal(),
+                        'coupon_applied'=>$this->has_coupon_applied($item),
+                        'paid_after_coupon'=>$item->get_total(),
                         'payment_type'=>$event->get_payment_type()['type'],
                     ];
                     continue;
@@ -247,6 +253,11 @@ class MROrders{
         return $response;
     }
 
+    // a coupon was applied to this line item if its pre-discount subtotal differs from its post-discount total
+    private function has_coupon_applied($item){
+        return $item->get_subtotal() != $item->get_total();
+    }
+
     private function process_order_discount($items){
         $return = [];
         foreach($items as $item){
@@ -262,6 +273,7 @@ class MROrders{
                 ];
             }
         }
+        return $return;
     }
 
 }
