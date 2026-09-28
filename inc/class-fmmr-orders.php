@@ -98,6 +98,9 @@ class MROrders{
                 'refund'=>$order->get_total_refunded(),
                 'transferred'=>get_post_meta($order_id,'transferred_from',true),
             ];
+            if($response['refund']){
+                $response['amount_paid'] = floatval($response['amount_paid']) - floatval($response['refund']);
+            }
         }
         return $response;
     }
